@@ -1,0 +1,20 @@
+%h1 Register
+= form_for(@user) do |f|
+	= render 'shared/error_messages', :object => f.object
+	.field
+		= f.label :first_name
+		= f.text_field :first_name
+	.field
+		= f.label :last_name
+		= f.text_field :last_name
+	.field
+		= f.label :email
+		= f.text_field :email
+	.field
+		= f.label :password
+		= f.password_field :password
+	.field
+		= f.label :password_confirmation, "Confirmation"
+		= f.password_field :password_confirmation
+	.actions
+		= f.submit "Register"

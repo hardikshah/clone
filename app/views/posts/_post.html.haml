@@ -1,0 +1,11 @@
+.title
+	= link_to post.title, post
+.description
+	= post.description
+.trade_for
+	= post.trade_for
+.location
+	#{post.city.name}, #{post.city.state.name}
+.timestamp
+	Created #{time_ago_in_words(post.created_at)} ago
+	%hr

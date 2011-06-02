@@ -1,0 +1,3 @@
+= form_for current_user.user_community_relationships.find_by_community_id(@community), :html => { :method => :delete } do |f|
+	.actions
+		= f.submit "Leave community"

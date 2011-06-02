@@ -1,0 +1,16 @@
+%header
+	= link_to logo, root_path
+	%nav.round
+		%ul
+			%li= link_to "Search", search_path
+			%li= link_to "New Post", new_post_path
+			%li= link_to "All Posts", posts_path
+			- if admin_user?
+				%li= link_to "All Users", users_path
+			- if signed_in?
+				%li= link_to "Communities", communities_path
+				%li= link_to "Profile", current_user
+				%li= link_to "Sign out", signout_path
+			- else
+				%li= link_to "Register", register_path
+				%li= link_to "Sign in", signin_path

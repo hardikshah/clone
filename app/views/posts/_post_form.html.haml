@@ -1,0 +1,48 @@
+= form_for @post, :html => { :multipart => true } do |f|
+	= render 'shared/error_messages', :object => f.object
+	.field
+		= f.label :title
+		= f.text_field :title
+	.field
+		= f.label :description
+		= f.text_area :description, :rows => 2, :cols => 40
+	.field
+		= f.label :trade_for
+		= f.text_field :trade_for
+	.field
+		= f.fields_for :post_images do |post_image|
+			= post_image.file_field :image
+	- if !signed_in?
+		.field
+			= f.label :email, "Email Address"
+			= f.text_field :email
+	.field
+		%label State
+		- states_array = @states.map { |state| [state.name, state.id] }
+		= select_tag("state_id", options_for_select(states_array))
+	.field
+		%label City
+		- cities_array = @cities.map { |city| [city.name, city.id] }
+		= select_tag("post[city_id]", options_for_select(cities_array))
+	.field
+		%label Goods
+		- @goods.each do |category|
+			.category
+				= check_box_tag "post[category_ids][]", category.id, @post.categories.include?(category)
+				= category.name
+	.field
+		%label Services
+		- @services.each do |category|
+			.category
+				= check_box_tag "post[category_ids][]", category.id, @post.categories.include?(category)
+				= category.name
+	- if signed_in?
+		.field
+			%label Communities
+			- @user_communities = current_user.communities
+			- @user_communities.each do |community|
+				.community
+					= check_box_tag "post[community_ids][]", community.id, @post.communities.include?(community)
+					= community.name
+	.actions
+		= f.submit

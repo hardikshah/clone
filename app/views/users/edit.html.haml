@@ -1,0 +1,21 @@
+= render 'user_nav'
+
+%h1 Edit profile
+= form_for(@user) do |f|
+	= render 'shared/error_messages', :object => f.object
+	.field
+		= f.label :first_name
+		= f.text_field :first_name
+	.field
+		= f.label :last_name
+		= f.text_field :last_name
+	.field
+		= f.label :email
+		= f.text_field :email, :readonly => true, :disabled => true
+	.actions
+		= f.submit "Update"
+%h5
+	= link_to "Delete user", @user, 
+							:method => :delete,
+							:confirm => "You sure you want to do this?",
+							:title => "Delete #{@user.first_name} #{@user.last_name}"

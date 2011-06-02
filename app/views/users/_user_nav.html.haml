@@ -1,0 +1,7 @@
+%ul
+	%li
+		= link_to "My Posts (#{@current_user.posts.active.count})", user_posts_path(@current_user)
+	%li
+		= link_to "My Outbound Trades (#{@current_user.trades.active.count})", user_trades_path(@current_user)
+	%li
+		= link_to "My Communities (#{@current_user.communities.active.count})", user_communities_path(@current_user)

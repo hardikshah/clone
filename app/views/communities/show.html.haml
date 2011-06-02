@@ -1,0 +1,11 @@
+.name
+	= link_to @community.name, community_path(@community)
+.description
+	= @community.description
+.image
+	- @community.community_images.each do |community_image|
+		= image_tag community_image.image.url(:medium)
+- if current_user.member_of_community?(@community)
+	= render 'leave'
+- else
+	= render 'join'

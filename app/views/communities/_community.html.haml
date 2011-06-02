@@ -1,0 +1,9 @@
+%hr
+.name
+	= link_to community.name, community_path(community)
+.description
+	= community.description
+- if current_user.member_of_community?(community)
+	%h5
+		%b
+			Currently a member of this community

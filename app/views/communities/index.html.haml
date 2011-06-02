@@ -1,0 +1,8 @@
+%h1 #{@title} (#{@communities.count})
+%ul.posts
+	= render @communities
+= will_paginate
+
+- if admin_user?
+	%hr
+		%p= link_to "New Community", new_community_path

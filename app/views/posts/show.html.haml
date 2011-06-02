@@ -1,0 +1,34 @@
+%h1
+	= link_to @post.title, @post
+.description
+	Description: #{@post.description}
+.trade-for
+	Trading for: #{@post.trade_for}
+.location
+	Location: #{@post.city.name}, #{@post.city.state.name}
+.timestamp
+	Updated #{time_ago_in_words(@post.updated_at)} ago
+.images
+	- @post.post_images.each do |post_image|
+		= image_tag post_image.image.url(:medium)
+.categories
+	%b
+		Categories
+	- @post.categories.each do |category|
+		.category
+			%li
+				= category.name
+- if current_user_is_owner?(@post)
+	%hr
+	.h1
+		= link_to "Edit Post", edit_post_path(@post)
+- elsif current_user_has_trade_with_post?(@post) 
+	.h1
+		%hr
+		You already have an open trade with this post!
+		= link_to "Visit your profile", current_user 
+		to view all open trades.
+- else 
+	.h1
+		= render 'trades/trade_form', :post => @post
+

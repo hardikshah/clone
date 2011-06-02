@@ -1,0 +1,14 @@
+development:
+    bucket: twopicklesdev
+    access_key_id: AKIAIYRERPMDFIAMOPIQ
+    secret_access_key: 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
+
+test:
+    bucket: twopicklestest
+    access_key_id: AKIAIYRERPMDFIAMOPIQ
+    secret_access_key: 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
+
+production:
+    bucket: twopicklesprod
+    access_key_id: AKIAIYRERPMDFIAMOPIQ
+    secret_access_key: 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

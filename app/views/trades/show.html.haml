@@ -1,0 +1,17 @@
+%h1 Trade Details
+.tradedetails
+	.post
+		Post details
+		.post-title
+			Post Title: #{@trade.post.title}
+		.post-description
+			Post Description: #{@trade.post.description}
+		.post-trade-for
+			Willing to trade for: #{@trade.post.trade_for}
+	.trade-time
+		Trade created #{time_ago_in_words(@trade.created_at)} ago
+%hr
+	= link_to "Delete trade", post_trade_path(@trade.post, @trade), 
+					:method => :delete,
+					:confirm => "You sure you want to do this?",
+					:title => "Delete trade"

@@ -1,0 +1,5 @@
+= form_for current_user.user_community_relationships.build(:community_id => @community.id) do |f| 
+	.hidden
+		= f.hidden_field :community_id
+	.actions
+		= f.submit "Join community"

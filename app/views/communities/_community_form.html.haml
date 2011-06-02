@@ -1,0 +1,14 @@
+= form_for @community, :html => { :multipart => true } do |f|
+	= render 'shared/error_messages', :object => f.object
+	.field
+		= f.label :name
+		= f.text_field :name
+	.field
+		= f.label :description
+		= f.text_area :description, :rows => 2, :cols => 40
+	.field
+		= f.fields_for :community_images do |community_image|
+			= community_image.label :image
+			= community_image.file_field :image
+	.actions
+		= f.submit

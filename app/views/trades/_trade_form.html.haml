@@ -1,0 +1,12 @@
+.trade
+	= form_for [post, @trade] do |f|
+		= render 'shared/error_messages', :object => f.object
+		.field
+			= f.label :content, "Propose Trade"
+			= f.text_area :content
+			- unless signed_in?
+				.field
+					= f.label :email
+					= f.text_field :email
+			.actions
+				= f.submit "Create Trade"

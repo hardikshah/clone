@@ -1,0 +1,9 @@
+.tradedetails
+	.post-title
+		= link_to "#{trade.post.title}", post_trade_path(trade.post, trade)
+	.trade-proposal
+		%b
+			I proposed: #{trade.content}
+	.trade-time
+		Trade created #{time_ago_in_words(trade.created_at)} ago
+%hr
