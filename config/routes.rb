@@ -1,58 +1,62 @@
-Tp::Application.routes.draw do
-  # The priority is based upon order of creation:
-  # first created -> highest priority.
+Twopickles::Application.routes.draw do
 
-  # Sample of regular route:
-  #   match 'products/:id' => 'catalog#view'
-  # Keep in mind you can assign values other than :controller and :action
 
-  # Sample of named route:
-  #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
-  # This route can be invoked with purchase_url(:id => product.id)
+  get "post_category_relationships/create"
 
-  # Sample resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
+  get "post_category_relationships/destroy"
 
-  # Sample resource route with options:
-  #   resources :products do
-  #     member do
-  #       get 'short'
-  #       post 'toggle'
-  #     end
-  #
-  #     collection do
-  #       get 'sold'
-  #     end
-  #   end
+  # customer activation routes
+  match "/users/activate/(:id/(:activation_hash))", 
+                                            :to => 'users#activate'
 
-  # Sample resource route with sub-resources:
-  #   resources :products do
-  #     resources :comments, :sales
-  #     resource :seller
-  #   end
+  match "/posts/activate/(:id/(:activation_hash))", 
+                                            :to => 'posts#activate'
 
-  # Sample resource route with more complex sub-resources
-  #   resources :products do
-  #     resources :comments
-  #     resources :sales do
-  #       get 'recent', :on => :collection
-  #     end
-  #   end
+  match "/communities/activate/(:id/)", 
+                                            :to => 'communities#activate'
 
-  # Sample resource route within a namespace:
-  #   namespace :admin do
-  #     # Directs /admin/products/* to Admin::ProductsController
-  #     # (app/controllers/admin/products_controller.rb)
-  #     resources :products
-  #   end
+  # load resources for the users
+  resources :users do
+    resources :posts, :only => [:show, :index]
+    resources :trades, :only => [:show, :index]
+    resources :communities, :only => [:show, :index]
+  end
+  resources :sessions, :only => [:new, :create, :destroy]
+  resources :posts do
+    resources :trades, :only => [:show, :create, :destroy]
+  end
+  resources :communities
+  resources :user_community_relationships, :only => [:create, :destroy]
+  resources :states, :only => [:index, :show]
 
-  # You can have the root of your site routed with "root"
-  # just remember to delete public/index.html.
-  # root :to => "welcome#index"
+  #custom page for searching for posts
+  match '/search', :to => 'posts#search'
 
-  # See how all your routes lay out with "rake routes"
+  # custom page for registering new users
+  match '/register',  :to => 'users#new'
 
-  # This is a legacy wild controller route that's not recommended for RESTful applications.
-  # Note: This route will make all actions in every controller accessible via GET requests.
-  # match ':controller(/:action(/:id(.:format)))'
+  # custom pages for signing in and signing out
+  match '/signin',    :to => 'sessions#new'
+  match '/signout',   :to => 'sessions#destroy'
+
+  # static page shortcuts
+  match '/about',     :to => 'pages#about'
+  match '/userguide', :to => 'pages#userguide'
+  match '/faq',       :to => 'pages#faq'
+  match '/safety',    :to => 'pages#safety'
+  match '/privacy',   :to => 'pages#privacy'
+  match '/terms',     :to => 'pages#terms'
+  match '/contact',   :to => 'pages#contact'
+  
+  get "pages/home"
+  get "pages/contact"
+  get "pages/about"
+  get "pages/privacy"
+  get "pages/terms"
+  get "pages/faq"
+  get "pages/userguide"
+  get "pages/safety"
+
+  root :to => "pages#home"
+
 end

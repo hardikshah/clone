@@ -4,4 +4,4 @@
 require File.expand_path('../config/application', __FILE__)
 require 'rake'
 
-Tp::Application.load_tasks
+Twopickles::Application.load_tasks
